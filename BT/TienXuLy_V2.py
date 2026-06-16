@@ -1,14 +1,21 @@
 import cv2
 import numpy as np
 import os
+import sys
 from pathlib import Path
 
+# Cấu hình stdout/stderr UTF-8 để in tiếng Việt trên console Windows không bị lỗi
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+if sys.stderr.encoding != 'utf-8':
+    sys.stderr.reconfigure(encoding='utf-8')
 
 # ===========================================================
 # CẤU HÌNH
 # ===========================================================
-INPUT_DIR  = r"D:\ảnh\BT\dataset"
-OUTPUT_DIR = r"D:\ảnh\BT\dataset_processed"
+BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
+INPUT_DIR  = os.path.join(BASE_DIR, "dataset")
+OUTPUT_DIR = os.path.join(BASE_DIR, "dataset_processed")
 
 
 # ===========================================================
@@ -32,30 +39,23 @@ def preprocess_image(image_path, target_size=(224, 224)):
     if img is None:
         return None
 
-    img_filtered = cv2.medianBlur(img, 3)
-
-    lab = cv2.cvtColor(img_filtered, cv2.COLOR_BGR2LAB)
-    l, a, b = cv2.split(lab)
-    clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
-    cl = clahe.apply(l)
-    img_clahe = cv2.cvtColor(cv2.merge((cl, a, b)), cv2.COLOR_LAB2BGR)
-
-    hsv = cv2.cvtColor(img_clahe, cv2.COLOR_BGR2HSV)
+    # Chuyển trực tiếp sang HSV từ ảnh gốc để phân tách quả
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     lower_bound = np.array([0, 40, 40])
     upper_bound = np.array([179, 255, 255])
     raw_mask = cv2.inRange(hsv, lower_bound, upper_bound)
 
+    # Tìm contour lớn nhất và vẽ mặt nạ đặc
     clean_mask = np.zeros_like(raw_mask)
     contours, _ = cv2.findContours(raw_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     if contours:
         largest_contour = max(contours, key=cv2.contourArea)
         cv2.drawContours(clean_mask, [largest_contour], -1, 255, -1)
 
-    kernel = np.ones((5, 5), np.uint8)
-    clean_mask = cv2.morphologyEx(clean_mask, cv2.MORPH_CLOSE, kernel, iterations=2)
-    clean_mask = cv2.GaussianBlur(clean_mask, (5, 5), 0)
-
-    img_segmented = cv2.bitwise_and(img_clahe, img_clahe, mask=clean_mask)
+    # Cắt quả ra khỏi nền bằng ảnh gốc (không dùng ảnh đã qua CLAHE)
+    img_segmented = cv2.bitwise_and(img, img, mask=clean_mask)
+    
+    # Resize về kích thước chuẩn đầu vào của mô hình
     img_resized = cv2.resize(img_segmented, target_size, interpolation=cv2.INTER_AREA)
 
     return img_resized
