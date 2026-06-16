@@ -1,4 +1,5 @@
 import os
+import sys
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -10,13 +11,20 @@ import matplotlib
 import seaborn as sns
 import numpy as np
 
+# Cấu hình stdout/stderr UTF-8 để in tiếng Việt trên console Windows không bị lỗi
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
+if sys.stderr.encoding != 'utf-8':
+    sys.stderr.reconfigure(encoding='utf-8')
+
 matplotlib.use('Agg')
 
 # ===========================================================
 # CẤU HÌNH
 # ===========================================================
-DATA_DIR   = r"./dataset_processed"
-OUTPUT_DIR = r"./output"
+BASE_DIR   = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR   = os.path.join(BASE_DIR, "dataset_processed")
+OUTPUT_DIR = os.path.join(BASE_DIR, "output")
 
 MODEL_SAVE_PATH = os.path.join(OUTPUT_DIR, "best_model_v2.pt")
 PLOT_SAVE_PATH  = os.path.join(OUTPUT_DIR, "learning_curve_v2.png")
