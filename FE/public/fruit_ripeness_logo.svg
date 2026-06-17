@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="46" viewBox="0 0 48 46" fill="none">
+  <defs>
+    <linearGradient id="fruitGrad" x1="8" y1="38" x2="40" y2="8" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#169976"/>
+      <stop offset="100%" stop-color="#1DCD9F"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Leaf -->
+  <path d="M26 4C31 2 35 4 37 8C33 9 29 8 26 4Z" fill="#1DCD9F"/>
+
+  <!-- Stem -->
+  <path d="M24 6C24 4.9 24.9 4 26 4H27C28.1 4 29 4.9 29 6V10H24V6Z" fill="#222222"/>
+
+  <!-- Fruit body -->
+  <path d="M24 10C34.5 10 42 17.3 42 27C42 36.7 34.5 44 24 44C13.5 44 6 36.7 6 27C6 17.3 13.5 10 24 10Z"
+        fill="url(#fruitGrad)"/>
+
+  <!-- Ripeness divider -->
+  <path d="M24 10V44" stroke="#000000" stroke-width="2.2" stroke-linecap="round" opacity="0.9"/>
+
+  <!-- Unripe side indicator -->
+  <circle cx="17" cy="25" r="4" fill="#169976"/>
+  <path d="M15 25L16.5 26.5L19.5 23.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Ripe side indicator -->
+  <circle cx="31" cy="25" r="4" fill="#1DCD9F"/>
+  <path d="M29 25L30.5 26.5L33.5 23.5" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Outer accent -->
+  <path d="M12 18C15 14 19 12 24 12" stroke="#222222" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+</svg>
