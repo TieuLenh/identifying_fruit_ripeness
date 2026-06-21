@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="46" viewBox="0 0 48 46" fill="none">
+<defs>
+  <linearGradient id="neon" x1="6" y1="42" x2="42" y2="6">
+    <stop offset="0%" stop-color="#00FFC6"/>
+    <stop offset="100%" stop-color="#6DFFF0"/>
+  </linearGradient>
+
+  <filter id="glow">
+    <feGaussianBlur stdDeviation="2.5" result="blur"/>
+    <feMerge>
+      <feMergeNode in="blur"/>
+      <feMergeNode in="SourceGraphic"/>
+    </feMerge>
+  </filter>
+</defs>
+
+<!-- Neon glow -->
+<circle cx="24" cy="27" r="18" fill="#1DCD9F" opacity="0.25" filter="url(#glow)"/>
+
+<!-- Leaf -->
+<path d="M26 3C33 1 37 4 39 10C34 11 29 9 26 3Z"
+      fill="#6DFFF0" filter="url(#glow)"/>
+
+<!-- Stem -->
+<rect x="24" y="4" width="4" height="7" rx="2" fill="#AFFFF6"/>
+
+<!-- Fruit -->
+<circle cx="24" cy="27" r="16"
+        fill="url(#neon)"
+        stroke="#AFFFF6"
+        stroke-width="1.5"/>
+
+<!-- Split green-ripe -->
+<line x1="24" y1="12" x2="24" y2="42"
+      stroke="#E8FFFF"
+      stroke-width="2"
+      opacity="0.9"/>
+
+<!-- AI scan marks -->
+<path d="M13 20H17M13 20V24" stroke="#E8FFFF" stroke-width="1.5"/>
+<path d="M35 20H31M35 20V24" stroke="#E8FFFF" stroke-width="1.5"/>
+<path d="M13 34H17M13 34V30" stroke="#E8FFFF" stroke-width="1.5"/>
+<path d="M35 34H31M35 34V30" stroke="#E8FFFF" stroke-width="1.5"/>
+
+<!-- Neon center dot -->
+<circle cx="24" cy="27" r="3.5" fill="#FFFFFF" filter="url(#glow)"/>
+</svg>
