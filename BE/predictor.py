@@ -18,7 +18,7 @@ DATASET_PATH = os.path.join(
     BASE_DIR,
     "..",
     "BT",
-    "dataset_processed",
+    "dataset",
     "train"
 ) # Đường dẫn đến thư mục chứa dataset đã được xử lý, khớp với Train_Model_V2.py
 

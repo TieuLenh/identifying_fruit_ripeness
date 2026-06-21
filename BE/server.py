@@ -2,6 +2,7 @@ from flask import Flask
 from flask import request
 from flask import jsonify
 from flask import render_template
+from flask_cors import CORS
 
 from PIL import Image
 
@@ -12,6 +13,7 @@ app = Flask(
     template_folder="template",
     static_folder="static"
 )
+CORS(app)
 
 
 @app.route("/")
